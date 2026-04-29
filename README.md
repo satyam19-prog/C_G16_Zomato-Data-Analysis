@@ -1,183 +1,199 @@
-# NST DVA Capstone 2 - Project Repository
+Readme · MD
+Copy
 
-> **Newton School of Technology | Data Visualization & Analytics**
-> A 2-week industry simulation capstone using Python, GitHub, and Tableau to convert raw data into actionable business intelligence.
-
+# Zomato Delivery Operations Analytics
+ 
+> **Newton School of Technology | Data Visualization & Analytics — Capstone 2**
+> A 2-week industry simulation converting raw Zomato delivery data into actionable business intelligence using Python, GitHub, and Tableau.
+ 
 ---
-
-## Before You Start
-
-1. Rename the repository using the format `SectionName_TeamID_ProjectName`.
-2. Fill in the project details and team table below.
-3. Add the raw dataset to `data/raw/`.
-4. Complete the notebooks in order from `01` to `05`.
-5. Publish the final dashboard and add the public link in `tableau/dashboard_links.md`.
-6. Export the final report and presentation as PDFs into `reports/`.
-
-### Quick Start
-
-If you are working locally:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-jupyter notebook
-```
-
-If you are working in Google Colab:
-
-- Upload or sync the notebooks from `notebooks/`
-- Keep the final `.ipynb` files committed to GitHub
-- Export any cleaned datasets into `data/processed/`
-
----
-
+ 
 ## Project Overview
-
+ 
 | Field | Details |
 |---|---|
-| **Project Title** | _To be filled by team_ |
-| **Sector** | _e.g. Retail, Finance, Healthcare, EdTech_ |
-| **Team ID** | _e.g. DVA-B1-T3_ |
-| **Section** | _To be filled by team_ |
-| **Faculty Mentor** | _To be filled by team_ |
+| **Project Title** | Zomato Delivery Operations Analytics |
+| **Sector** | Food Technology and Delivery Operations |
+| **Team ID** | G16 |
+| **Section** | C |
+| **Faculty Mentor** | Archit Sir |
 | **Institute** | Newton School of Technology |
-| **Submission Date** | _To be filled by team_ |
-
+| **GitHub Repository** | https://github.com/kushpuri07/C_G16_Zomato-Data-Analysis |
+| **Tableau Dashboard** | https://public.tableau.com/views/Zomato_Delivery_Analysis/Dashboard1 |
+ 
 ### Team Members
-
+ 
 | Role | Name | GitHub Username |
 |---|---|---|
-| Project Lead | _Name_ | `github-handle` |
-| Data Lead | _Name_ | `github-handle` |
-| ETL Lead | _Name_ | `github-handle` |
-| Analysis Lead | _Name_ | `github-handle` |
-| Visualization Lead | _Name_ | `github-handle` |
-| Strategy Lead | _Name_ | `github-handle` |
-| PPT and Quality Lead | _Name_ | `github-handle` |
-
+| Project Lead & Visualization Lead | Kush Puri | `https://github.com/kushpuri07` |
+| Design & Visualization | Nitanshu Goyal | `https://github.com/nitanshu12` |
+| Analysis & Visualization | Satyam Singh | `https://github.com/satyam19-prog` |
+| Statistical Analysis & Visualization | Neeraj Singh | `https://github.com/Neeraj-singh140805` |
+| PPT & Quality Lead | Augustya Purohit | `https://github.com/augustyapurohit` |
+| Strategy Lead | Shubhaang Kataruka | `https://github.com/S-h-u-b-h-1` |
+ 
 ---
-
+ 
 ## Business Problem
-
-_Describe the sector context, the decision-maker this project serves, and the core business challenge being addressed. Keep this to 3-5 sentences written in plain language, as if addressing a senior stakeholder._
-
+ 
+India's food delivery market is growing at a CAGR exceeding 15% through 2027, making delivery time one of the most critical competitive differentiators for platforms like Zomato. Delays caused by traffic congestion, adverse weather, festival-period surges, and under-resourced delivery partners directly translate into customer dissatisfaction, negative ratings, and order cancellations.
+ 
 **Core Business Question**
-
-> _State the single main question your Tableau dashboard and Python analysis will answer._
-
+ 
+> Which operational factors — traffic density, weather conditions, vehicle type, delivery partner ratings, and festival periods — most significantly impact food delivery time on Zomato, and what targeted interventions can reduce average delivery time by at least 15 percent?
+ 
 **Decision Supported**
-
-> _What action or decision will this analysis enable the stakeholder to take?_
-
+ 
+> This analysis enables operations managers and executive stakeholders to implement data-backed interventions in routing, partner deployment, and resource planning to measurably reduce average delivery time and improve customer satisfaction.
+ 
 ---
-
+ 
 ## Dataset
-
+ 
 | Attribute | Details |
 |---|---|
-| **Source Name** | _e.g. World Bank, data.gov.in, Kaggle (raw only)_ |
-| **Direct Access Link** | _Paste the direct download or access URL_ |
-| **Row Count** | _Must be greater than 5,000_ |
-| **Column Count** | _Must be greater than 8 meaningful columns_ |
-| **Time Period Covered** | _e.g. Jan 2019 to Dec 2023_ |
-| **Format** | _e.g. CSV, JSON, Excel_ |
-
-**Key Columns Used**
-
+| **Source Name** | Kaggle — Zomato Delivery Operations Analytics Dataset by Saurabh Badole |
+| **Direct Access Link** | https://www.kaggle.com/datasets/saurabhbadole/zomato-delivery-operations-analytics-dataset |
+| **Row Count** | 45,584 |
+| **Column Count** | 20 (original) · 25 (post feature engineering) |
+| **Time Period Covered** | February 2022 to April 2022 |
+| **Format** | CSV |
+ 
+### Key Columns Used
+ 
 | Column Name | Description | Role in Analysis |
 |---|---|---|
-| _column_1_ | _What it means_ | _Used for KPI / filter / segmentation_ |
-| _column_2_ | _What it means_ | _Used for KPI / filter / segmentation_ |
-| _column_3_ | _What it means_ | _Used for KPI / filter / segmentation_ |
-| _column_4_ | _What it means_ | _Used for KPI / filter / segmentation_ |
-
+| `Time_taken (min)` | Total delivery time in minutes | Target variable / primary KPI |
+| `Road_traffic_density` | Traffic density level during delivery (Low / Medium / High / Jam) | Key delay driver / filter |
+| `Weather_conditions` | Prevailing weather at time of delivery | Delay driver / segmentation |
+| `Festival` | Whether a festival was ongoing at time of order (Yes / No) | Delay driver / KPI |
+| `City` | City type of delivery location (Metropolitan / Urban / Semi-Urban) | Geographic segmentation / filter |
+| `Delivery_person_Ratings` | Customer rating given to the delivery partner | Performance KPI / correlation |
+| `Type_of_vehicle` | Type of vehicle used for delivery | Fleet analysis / filter |
+| `multiple_deliveries` | Number of simultaneous deliveries carried | Batching impact analysis |
+| `Delivery_person_Age` | Age of the delivery partner in years | Partner demographics |
+| `Vehicle_condition` | Condition rating of the delivery vehicle (0–3) | Fleet maintenance KPI |
+| `Order_Date` | Date on which the order was placed | Time-series / trend analysis |
+| `Order_Hour` | Hour at which the order was placed (feature engineered) | Peak demand analysis |
+ 
 For full column definitions, see [`docs/data_dictionary.md`](docs/data_dictionary.md).
-
+ 
 ---
-
+ 
 ## KPI Framework
-
-| KPI | Definition | Formula / Computation |
+ 
+| KPI | Definition | Stakeholder |
 |---|---|---|
-| _e.g. Monthly Revenue Growth %_ | _What business outcome this tracks_ | _Show the exact formula or notebook reference_ |
-| _e.g. Customer Churn Rate_ | _What business outcome this tracks_ | _Show the exact formula or notebook reference_ |
-| _e.g. Repeat Purchase Rate_ | _What business outcome this tracks_ | _Show the exact formula or notebook reference_ |
-
-Document KPI logic clearly in `notebooks/04_statistical_analysis.ipynb` and `notebooks/05_final_load_prep.ipynb`.
-
+| Average Delivery Time | Mean of `Time_taken (min)` across all orders | Executive |
+| Total Orders | Count of unique order IDs | Executive |
+| Average Partner Rating | Mean of `Delivery_person_Ratings` | Executive |
+| Peak Order Day | Day of week with highest order volume | Executive |
+| Worst Traffic Density | Traffic level associated with the highest average delivery time | Operations |
+| Worst Weather Condition | Weather type associated with the highest average delivery time | Operations |
+| Festival Time Difference | Difference in avg delivery time between Festival and Non-Festival orders | Operations |
+| Average Multiple Deliveries | Mean number of simultaneous deliveries per order | Operations |
+| Average Partner Age | Mean age of all active delivery partners | Partner Performance |
+| Top Vehicle Used | Vehicle type with the highest order volume | Partner Performance |
+| Top Rated Average Time | Avg delivery time for partners with rating ≥ 4.8 | Partner Performance |
+ 
 ---
-
+ 
 ## Tableau Dashboard
-
+ 
 | Item | Details |
 |---|---|
-| **Dashboard URL** | _Paste Tableau Public link here_ |
-| **Executive View** | _Describe the high-level KPI summary view_ |
-| **Operational View** | _Describe the detailed drill-down view_ |
-| **Main Filters** | _List the interactive filters used_ |
-
-Store dashboard screenshots in [`tableau/screenshots/`](tableau/screenshots/) and document the public links in [`tableau/dashboard_links.md`](tableau/dashboard_links.md).
-
+| **Dashboard URL** | https://public.tableau.com/views/Zomato_Delivery_Analysis/Dashboard1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link |
+| **Executive View** | High-level KPI summary: avg delivery time, total orders, avg partner rating, peak day, city-wise performance, order type mix, and hourly/weekly demand trends |
+| **Operational View** | Delay driver analysis across traffic density, weather conditions, festival periods, multiple deliveries, and vehicle types |
+| **Partner Performance View** | Driver demographics, rating vs delivery time correlation, vehicle condition impact, and age-group performance segmentation |
+| **Main Filters** | City type, Road traffic density, Weather conditions, Festival (Yes/No), Vehicle type, Day of week |
+ 
+Dashboard screenshots are stored in [`tableau/screenshots/`](tableau/screenshots/) and the public link is documented in [`tableau/dashboard_links.md`](tableau/dashboard_links.md).
+ 
 ---
-
+ 
 ## Key Insights
-
-_List 8-12 major findings from the analysis, written in decision language. Each insight should tell the reader what to think or act upon, not merely describe a chart._
-
-1. _Insight 1_
-2. _Insight 2_
-3. _Insight 3_
-4. _Insight 4_
-5. _Insight 5_
-6. _Insight 6_
-7. _Insight 7_
-8. _Insight 8_
-
+ 
+1. **Jam traffic conditions increase average delivery time by 5 to 7 minutes** compared to low traffic, representing the single largest controllable contributor to delivery delays.
+2. **Semi-Urban areas record an average delivery time of 49 minutes — nearly double the Urban average of 20 minutes**, indicating a structural under-investment in delivery infrastructure and partner density in semi-urban zones.
+3. **Cloudy weather is associated with the highest average delivery times**, suggesting that reduced visibility has a greater operational impact than precipitation-based conditions such as storms or sandstorms.
+4. **Delivery partners rated 4.8 and above deliver orders 1.9 minutes faster than the fleet average**, confirming that partner quality is a measurable and actionable driver of operational efficiency.
+5. **Each additional simultaneous delivery is associated with a measurable increase in total delivery time**, indicating that indiscriminate order batching beyond a threshold reduces both efficiency and customer satisfaction.
+6. **Festival periods do not consistently increase delivery times when staffing is proactively scaled**, as evidenced by the negative festival time difference observed in the data.
+7. **Electric scooters demonstrate lower average delivery times than motorcycles and bicycles**, suggesting they represent a high-value fleet investment for urban operations.
+8. **Peak order hours at lunch (13:00–15:00) and dinner (19:00–22:00) are consistent and predictable**, enabling precise time-based partner deployment strategies.
+9. **Delivery partners in the 30–35 age group demonstrate the highest average delivery times, while under-25 partners show the lowest**, suggesting younger partners may be more route-adaptive.
+10. **Vehicle condition has a measurable negative correlation with delivery time**: partners operating vehicles in poor condition take approximately 2.76 minutes longer on average.
+11. **Motorcycle and scooter deliveries account for the majority of all orders**, while bicycle deliveries represent a small but consistently slower segment warranting route-specific optimisation.
+12. **Wednesday records the highest order volume across the week**, contradicting the common assumption that weekends drive peak demand and suggesting mid-week promotional and staffing adjustments are warranted.
 ---
-
+ 
 ## Recommendations
-
-_Provide 3-5 specific, actionable business recommendations, each linked directly to an insight above._
-
+ 
 | # | Insight | Recommendation | Expected Impact |
 |---|---|---|---|
-| 1 | _Which insight does this address?_ | _What should the stakeholder do?_ | _What measurable impact do you expect?_ |
-| 2 | _Which insight does this address?_ | _What should the stakeholder do?_ | _What measurable impact do you expect?_ |
-| 3 | _Which insight does this address?_ | _What should the stakeholder do?_ | _What measurable impact do you expect?_ |
-
+| 1 | Jam traffic adds 5–7 min to delivery time | Integrate real-time traffic data into the Zomato dispatch algorithm to auto-reroute partners away from jam-density zones during peak hours | 8–12% reduction in avg delivery time during peak traffic periods |
+| 2 | Cloudy and foggy weather are the worst delay-associated conditions | Establish a weather monitoring protocol that automatically triggers additional partner deployment when cloudy or foggy conditions are forecast | ~15% reduction in weather-related delays |
+| 3 | High-rated partners (≥4.8) deliver 1.9 min faster than the fleet average | Create a tiered incentive structure rewarding top-rated partners with priority order allocation and performance bonuses | Expanding this cohort to 30% of the active fleet could reduce fleet-wide avg delivery time by ~0.6 min with compounding satisfaction benefits |
+| 4 | Each additional simultaneous delivery increases delivery time linearly | Enforce a cap of 2 simultaneous deliveries per partner during peak hours (13:00–15:00 and 19:00–22:00) | Consistent delivery time protection during the highest-demand periods |
+| 5 | Semi-Urban areas are 29 min slower than Urban on average | Prioritise increasing partner density, dark kitchen placement, and route coverage in semi-urban zones | A 20% increase in semi-urban partner density is estimated to reduce semi-urban avg delivery time by ~10 min |
+ 
 ---
-
+ 
+## Analytical Pipeline
+ 
+The project follows a structured 7-step workflow:
+ 
+1. **Define** — Sector selected (Food Technology), problem statement scoped around delivery time drivers, mentor approval obtained at Gate 1.
+2. **Extract** — Raw dataset sourced from Kaggle (45,584 rows, 20 columns) and committed to `data/raw/`; data dictionary drafted in `docs/`.
+3. **Clean and Transform** — Full ETL pipeline built in `notebooks/02_cleaning.ipynb`: column name correction, categorical value correction (e.g. `Metropolitian` → `Metropolitan`), missing value imputation across 8 columns, datetime conversion, and feature engineering of 5 new time-based columns.
+4. **Analyze** — EDA and statistical analysis in notebooks `03` and `04`: distribution analysis, city/weather/traffic segmentation, One-Way ANOVA, Independent T-Test, Pearson Correlation, and Linear Regression.
+5. **Visualize** — Three interactive Tableau dashboards built and published on Tableau Public: Executive Overview, Operational Analysis, and Partner Performance.
+6. **Recommend** — 5 data-backed business recommendations delivered, each linked to a specific insight and accompanied by an estimated impact.
+7. **Report** — Final project report and presentation deck completed and exported to PDF in `reports/`.
+---
+ 
+## Statistical Analysis Summary
+ 
+| Test | Variables | Method | Result |
+|---|---|---|---|
+| Test 1 | Traffic Density vs Delivery Time | One-Way ANOVA | Statistically significant (p < 0.05) |
+| Test 2 | Festival vs Delivery Time | Independent T-Test | Statistically significant (p < 0.05) |
+| Test 3 | Weather Conditions vs Delivery Time | One-Way ANOVA | Statistically significant (p < 0.05) |
+| Test 4 | Multiple Deliveries vs Delivery Time | One-Way ANOVA | Statistically significant (p < 0.05) |
+ 
+Pearson correlation confirmed that multiple deliveries show the strongest positive correlation with delivery time. Vehicle condition and partner ratings both show weak negative correlations. A multiple linear regression model trained on 6 features (traffic, weather, city, multiple deliveries, ratings, vehicle condition) returned a moderate R-squared score, confirming collective predictive utility.
+ 
+---
+ 
 ## Repository Structure
-
+ 
 ```text
-SectionName_TeamID_ProjectName/
+C_G16_Zomato-Data-Analysis/
 |
 |-- README.md
 |
 |-- data/
 |   |-- raw/                         # Original dataset (never edited)
-|   `-- processed/                   # Cleaned output from ETL pipeline
+|   `-- processed/                   # Cleaned output: Zomato_Cleaned.csv (25 columns, 0 nulls)
 |
 |-- notebooks/
-|   |-- 01_extraction.ipynb
-|   |-- 02_cleaning.ipynb
-|   |-- 03_eda.ipynb
-|   |-- 04_statistical_analysis.ipynb
-|   `-- 05_final_load_prep.ipynb
+|   |-- 01_extraction.ipynb          # Data loading, inspection, null profiling
+|   |-- 02_cleaning.ipynb            # ETL pipeline: imputation, correction, feature engineering
+|   |-- 03_eda.ipynb                 # Exploratory analysis: distributions, trends, outliers
+|   |-- 04_statistical_analysis.ipynb # ANOVA, T-Test, Pearson correlation, Linear Regression
+|   `-- 05_final_load_prep.ipynb     # KPI computation and final data load
 |
 |-- scripts/
 |   `-- etl_pipeline.py
 |
 |-- tableau/
-|   |-- screenshots/
-|   `-- dashboard_links.md
+|   |-- screenshots/                 # Dashboard screenshots
+|   `-- dashboard_links.md           # Tableau Public URL
 |
 |-- reports/
-|   |-- README.md
-|   |-- project_report_template.md
-|   `-- presentation_outline.md
+|   |-- project_report.pdf
+|   `-- presentation.pdf
 |
 |-- docs/
 |   `-- data_dictionary.md
@@ -185,39 +201,24 @@ SectionName_TeamID_ProjectName/
 |-- DVA-oriented-Resume/
 `-- DVA-focused-Portfolio/
 ```
-
+ 
 ---
-
-## Analytical Pipeline
-
-The project follows a structured 7-step workflow:
-
-1. **Define** - Sector selected, problem statement scoped, mentor approval obtained.
-2. **Extract** - Raw dataset sourced and committed to `data/raw/`; data dictionary drafted.
-3. **Clean and Transform** - Cleaning pipeline built in `notebooks/02_cleaning.ipynb` and optionally `scripts/etl_pipeline.py`.
-4. **Analyze** - EDA and statistical analysis performed in notebooks `03` and `04`.
-5. **Visualize** - Interactive Tableau dashboard built and published on Tableau Public.
-6. **Recommend** - 3-5 data-backed business recommendations delivered.
-7. **Report** - Final project report and presentation deck completed and exported to PDF in `reports/`.
-
----
-
+ 
 ## Tech Stack
-
+ 
 | Tool | Status | Purpose |
 |---|---|---|
-| Python + Jupyter Notebooks | Mandatory | ETL, cleaning, analysis, and KPI computation |
+| Python + Jupyter Notebooks | Mandatory | ETL, cleaning, EDA, statistical analysis, KPI computation |
 | Google Colab | Supported | Cloud notebook execution environment |
 | Tableau Public | Mandatory | Dashboard design, publishing, and sharing |
 | GitHub | Mandatory | Version control, collaboration, contribution audit |
-| SQL | Optional | Initial data extraction only, if documented |
-
-**Recommended Python libraries:** `pandas`, `numpy`, `matplotlib`, `seaborn`, `scipy`, `statsmodels`
-
+ 
+**Python libraries used:** `pandas`, `numpy`, `matplotlib`, `seaborn`, `scipy`, `statsmodels`, `sklearn`
+ 
 ---
-
+ 
 ## Evaluation Rubric
-
+ 
 | Area | Marks | Focus |
 |---|---|---|
 | Problem Framing | 10 | Is the business question clear and well-scoped? |
@@ -227,79 +228,42 @@ The project follows a structured 7-step workflow:
 | Business Recommendations | 20 | Are insights actionable and well-reasoned? |
 | Storytelling and Clarity | 10 | Is the presentation professional and coherent? |
 | **Total** | **100** | |
-
-> Marks are awarded for analytical thinking and decision relevance, not chart quantity, visual decoration, or code length.
-
+ 
 ---
-
-## Submission Checklist
-
-**GitHub Repository**
-
-- [ ] Public repository created with the correct naming convention (`SectionName_TeamID_ProjectName`)
-- [ ] All notebooks committed in `.ipynb` format
-- [ ] `data/raw/` contains the original, unedited dataset
-- [ ] `data/processed/` contains the cleaned pipeline output
-- [ ] `tableau/screenshots/` contains dashboard screenshots
-- [ ] `tableau/dashboard_links.md` contains the Tableau Public URL
-- [ ] `docs/data_dictionary.md` is complete
-- [ ] `README.md` explains the project, dataset, and team
-- [ ] All members have visible commits and pull requests
-
-**Tableau Dashboard**
-
-- [ ] Published on Tableau Public and accessible via public URL
-- [ ] At least one interactive filter included
-- [ ] Dashboard directly addresses the business problem
-
-**Project Report**
-
-- [ ] Final report exported as PDF into `reports/`
-- [ ] Cover page, executive summary, sector context, problem statement
-- [ ] Data description, cleaning methodology, KPI framework
-- [ ] EDA with written insights, statistical analysis results
-- [ ] Dashboard screenshots and explanation
-- [ ] 8-12 key insights in decision language
-- [ ] 3-5 actionable recommendations with impact estimates
-- [ ] Contribution matrix matches GitHub history
-
-**Presentation Deck**
-
-- [ ] Final presentation exported as PDF into `reports/`
-- [ ] Title slide through recommendations, impact, limitations, and next steps
-
-**Individual Assets**
-
-- [ ] DVA-oriented resume updated to include this capstone
-- [ ] Portfolio link or project case study added
-
----
-
+ 
 ## Contribution Matrix
-
-This table must match evidence in GitHub Insights, PR history, and committed files.
-
-| Team Member | Dataset and Sourcing | ETL and Cleaning | EDA and Analysis | Statistical Analysis | Tableau Dashboard | Report Writing | PPT and Viva |
-|---|---|---|---|---|---|---|---|
-| _Member 1_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ |
-| _Member 2_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ |
-| _Member 3_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ |
-| _Member 4_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ |
-| _Member 5_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ |
-| _Member 6_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ | _Owner / support_ |
-
+ 
+| Team Member | Role | Dataset & Sourcing | ETL & Cleaning | EDA & Analysis | Statistical Analysis | Tableau Dashboard | Report Writing | PPT & Viva |
+|---|---|---|---|---|---|---|---|---|
+| Kush Puri | Project Lead, Visualization Lead | Support | Owner | Support | Support | Owner | Support | Support |
+| Nitanshu Goyal | Design | Support | Support | Support | Support | Owner | Support | Support |
+| Satyam Singh | Analysis | Support | Support | Owner | Support | Support | Owner | Support |
+| Neeraj Singh | Statistical Analysis & Visualization | Owner | Support | Support | Owner | Support | Support | Support |
+| Augustya Purohit | PPT & Quality Lead | Support | Support | Support | Support | Support | Support | Owner |
+| Shubhaang Kataruka | Strategy Lead | Support | Support | Support | Support | Support | Owner | Support |
+ 
 _Declaration: We confirm that the above contribution details are accurate and verifiable through GitHub Insights, PR history, and submitted artifacts._
-
-**Team Lead Name:** _____________________________
-
-**Date:** _______________
-
+ 
 ---
-
+ 
+## Limitations and Future Scope
+ 
+**Limitations**
+- The dataset is synthetically generated and should be validated against live Zomato transactional data before implementing recommendations.
+- The dataset covers a limited time window (Feb–Apr 2022) and may not capture seasonal variation across all quarters.
+- Customer-side data (order value, cuisine preference, satisfaction scores) were not available, limiting demand-side analysis.
+- The linear regression model produced a moderate R-squared score, indicating that a significant portion of delivery time variance is explained by factors not present in the dataset.
+**Future Scope**
+- Integration of real-time GPS and traffic API data to enable live delivery time prediction.
+- Application of advanced ML models (Random Forest, XGBoost) to improve delivery time prediction accuracy.
+- Customer churn analysis linking delivery delays to repeat order behaviour and rating outcomes.
+- Expansion to tier-2 and tier-3 Indian cities for a nationally representative analysis.
+---
+ 
 ## Academic Integrity
-
-All analysis, code, and recommendations in this repository must be the original work of the team listed above. Free-riding is tracked via GitHub Insights and pull request history. Any mismatch between the contribution matrix and actual commit history may result in individual grade adjustments.
-
+ 
+All analysis, code, and recommendations in this repository are the original work of Team G16, Section C. Free-riding is tracked via GitHub Insights and pull request history. Any mismatch between the contribution matrix and actual commit history may result in individual grade adjustments.
+ 
 ---
-
-*Newton School of Technology - Data Visualization & Analytics | Capstone 2*
+ 
+*Newton School of Technology — Data Visualization & Analytics | Capstone 2 | Section C, Team G16*
