@@ -9,3 +9,5 @@ Satyam Singh: https://dva-portfolio-tau-flame.vercel.app/
 Augustya Purohit: https://dva-portfolio-amber.vercel.app/
 
 Nitanshu Goyal: https://dva-portfolio-one-green.vercel.app/
+
+Shubhaang Kataruka : https://s-h-u-b-h-1.github.io/My_Portfolio/
